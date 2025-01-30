@@ -9,6 +9,7 @@ class Play extends Phaser.Scene {
         this.SHOT_VELOCITY_X_MAX = 400
         this.SHOT_VELOCITY_Y_MIN = 700
         this.SHOT_VELOCITY_Y_MAX = 1100
+        this.WALL_SPEED = 200
 
     }
 
@@ -45,9 +46,13 @@ class Play extends Phaser.Scene {
         wallA.body.setCollideWorldBounds(true)
         wallA.body.setBounce(0.5)
 
+        //moving wall
         let wallB = this.physics.add.sprite(0, height / 2, 'wall')
         wallB.setX(Phaser.Math.Between(0 + wallB.width / 2, width - wallB.width / 2))
         wallB.body.setImmovable(true)
+        wallB.body.setCollideWorldBounds(true)
+        wallB.body.setBounce(0.5)
+        wallB.body.setVelocityX(this.WALL_SPEED)
 
         this.walls = this.add.group([wallA, wallB])
 
@@ -76,10 +81,10 @@ class Play extends Phaser.Scene {
 
         // ball/one-way collision
         this.physics.add.collider(this.ball, this.oneWay)
+
     }
 
     update() {
-
     }
 }
 /*
@@ -87,6 +92,6 @@ CODE CHALLENGE
 Try to implement at least 3/4 of the following features during the remainder of class (hint: each takes roughly 15 or fewer lines of code to implement):
 [X] Add ball reset logic on successful shot
 [X] Improve shot logic by making pointer’s relative x-position shoot the ball in correct x-direction
-[ ] Make one obstacle move left/right and bounce against screen edges
+[X] Make one obstacle move left/right and bounce against screen edges
 [ ] Create and display shot counter, score, and successful shot percentage
 */
